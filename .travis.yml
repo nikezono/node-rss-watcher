@@ -1,0 +1,10 @@
+language: node_js
+before_install:
+  - npm install -g coffee-script mocha
+before_script:
+  - coffee -o ./lib -c -b ./src
+node_js:
+  - "0.10"
+  - "0.8"
+notifications:
+  slack: masuilab:8zWbbrGldevhFHYK2FXXAXkP

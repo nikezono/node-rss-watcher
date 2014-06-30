@@ -1,0 +1,6 @@
+*.swp
+test/test.js
+.DS_Store
+node_modules
+.npmignore
+lib/

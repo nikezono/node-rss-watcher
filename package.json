@@ -1,0 +1,32 @@
+{
+  "name": "rss-watcher",
+  "version": "0.0.1",
+  "description": "RSS reader/watcher",
+  "main": "lib/watcher.js",
+  "scripts": {
+    "test": "mocha test/test.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikezono/node-rss-watcher.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "coffee-script": "*",
+    "mocha": "*"
+  },
+  "keywords": [
+    "rss",
+    "atom",
+    "reader",
+    "watcher",
+    "watch",
+    "read"
+  ],
+  "author": "nikezono",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikezono/node-rss-watcher/issues"
+  }
+}
