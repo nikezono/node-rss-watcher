@@ -24,16 +24,29 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
 ## Usage
 
-    watcher = require 'rss-watcher'
+    Watcher = require 'rss-watcher'
     feed = 'http://github.com/nikezono.atom'
 
-    watcher.set feed
+    watcher = new Watcher(feed)
 
-    watcher.run 20000 # request interval. default is [frequency](http://github.com/nikezono/node-rss-frequency)
-    watcher.on "pub",(article)->
-      console.log article
+    # it is optional
+    watcher.set
+      feed:feed # feed url
+      interval: 10000 # milliseconds. default:avarage update frequency
+
+    # exposed event
+    watcher.on "error",(error)->
+      console.error error
+
+    watcher.on "new article",(article)->
+      console.log article # article object
 
 ## CLI tool
 
     > rss-watcher 'http://github.com/nikezono.atom' -i 20000 # 20000s interval
+
+then,
+
+
+![gyazo](http://gyazo.com/35357bf10711857403eaa7abe6b70037.png)
 
