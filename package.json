@@ -11,6 +11,8 @@
     "url": "https://github.com/nikezono/node-rss-watcher.git"
   },
   "dependencies": {
+    "parse-rss":"*",
+    "rss-frequency":"*"
   },
   "devDependencies": {
     "coffee-script": "*",
