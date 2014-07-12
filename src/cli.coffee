@@ -32,7 +32,7 @@ program.version("0.2.0")
   .parse process.argv
 
 path = require 'path'
-Watcher = require path.resolve 'lib','watcher'
+Watcher = require './lib/watcher'
 watcher = new Watcher program.feed
 
 watcher.on 'error',(error)->
