@@ -1,6 +1,6 @@
 {
   "name": "rss-watcher",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "RSS reader/watcher",
   "main": "lib/watcher.js",
   "scripts": {
