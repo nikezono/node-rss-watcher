@@ -1,42 +1,52 @@
 {
-  "name": "rss-watcher",
-  "version": "1.0.6",
-  "description": "RSS reader/watcher",
-  "main": "lib/watcher.js",
-  "scripts": {
-    "test": "mocha test/test.coffee"
-  },
-  "bin": {
-    "rss-watcher": "./bin/rss-watcher"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nikezono/node-rss-watcher.git"
-  },
-  "dependencies": {
-    "parse-rss": "*",
-    "rss-frequency": "*",
-    "commander": "~2.2.0",
-    "colors": "~0.6.2",
-    "async": "~0.9.0",
-    "moment": "~2.7.0",
-    "goo.gl": "~0.1.0"
-  },
-  "devDependencies": {
-    "coffee-script": "*",
-    "mocha": "*"
-  },
-  "keywords": [
-    "rss",
-    "atom",
-    "reader",
-    "watcher",
-    "watch",
-    "read"
-  ],
-  "author": "nikezono",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nikezono/node-rss-watcher/issues"
-  }
+    "name": "rss-watcher",
+    "version": "1.0.7",
+    "description": "RSS reader/watcher",
+    "main": "lib/watcher.js",
+    "scripts": {
+      "test": "mocha test/test.coffee | ./node_modules/coveralls/bin/coveralls.js"
+    },
+    "config": {
+      "blanket": {
+        "pattern": "lib",
+        "loader": "./node-loaders/coffee-script",
+        "data-cover-never": "node_modules"
+      }
+    },
+    "bin": {
+      "rss-watcher": "./bin/rss-watcher"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/nikezono/node-rss-watcher.git"
+    },
+    "dependencies": {
+      "async": "~0.9.0",
+      "colors": "~0.6.2",
+      "commander": "~2.2.0",
+      "goo.gl": "~0.1.0",
+      "moment": "~2.7.0",
+      "parse-rss": "*",
+      "rss-frequency": "*"
+    },
+    "devDependencies": {
+      "blanket": "^1.1.6",
+      "coveralls": "^2.11.1",
+      "mocha-lcov-reporter": "0.0.1",
+      "coffee-script": "*",
+      "mocha": "*"
+    },
+    "keywords": [
+      "rss",
+      "atom",
+      "reader",
+      "watcher",
+      "watch",
+      "read"
+    ],
+    "author": "nikezono",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/nikezono/node-rss-watcher/issues"
+    }
 }

@@ -1,4 +1,4 @@
-rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png)](https://travis-ci.org/nikezono/node-rss-watcher)
+rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png)](https://travis-ci.org/nikezono/node-rss-watcher)[![Coverage Status](https://coveralls.io/repos/nikezono/node-rss-watcher/badge.png)](https://coveralls.io/r/nikezono/node-rss-watcher)
 ---
 
 [![NPM](https://nodei.co/npm/rss-watcher.png)](https://nodei.co/npm/rss-watcher/)

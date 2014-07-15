@@ -38,7 +38,6 @@ describe "rss-watcher",->
     watcher = new Watcher(feed)
     watcher.run ->
       watcher.once "new article",(article)->
-        console.info article.title
         done()
 
   it "option",->
