@@ -1,10 +1,10 @@
 language: node_js
 before_install:
-  - npm install -g coffee-script mocha
+  - npm install -g coffee-script mocha mocha-lcov-reporter
 before_script:
   - coffee -o ./lib -c -b ./src
 node_js:
   - "0.10"
-  - "0.8"
 notifications:
-  slack: masuilab:p4zvcihWTFLz1KwJXYGwJgeZ
+  slack:
+    masuilab:p4zvcihWTFLz1KwJXYGwJgeZ
