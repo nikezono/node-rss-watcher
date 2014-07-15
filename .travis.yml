@@ -1,6 +1,6 @@
 language: node_js
 before_install:
-  - npm install -g coffee-script mocha mocha-lcov-reporter
+  - npm install -g coffee-script mocha mocha-lcov-reporter blanket
 before_script:
   - coffee -o ./lib -c -b ./src
 node_js:
