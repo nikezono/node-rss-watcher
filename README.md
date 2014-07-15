@@ -47,6 +47,18 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
 then,
 
-
 ![gyazo](http://gyazo.com/35357bf10711857403eaa7abe6b70037.png)
+
+
+## Test
+
+Spec Report:
+
+    npm run-script test-spec
+
+
+Coverage:
+
+    npm run-script test-cover
+    open coverage.html
 

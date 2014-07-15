@@ -4,7 +4,10 @@
     "description": "RSS reader/watcher",
     "main": "lib/watcher.js",
     "scripts": {
-      "test": "mocha test/test.coffee | ./node_modules/coveralls/bin/coveralls.js"
+      "test": "mocha test/test.coffee | ./node_modules/coveralls/bin/coveralls.js",
+      "test-cover": "mocha test/test.coffee -R html-cov > coverage.html",
+      "test-spec":"mocha test/test.coffee --reporter spec"
+
     },
     "config": {
       "blanket": {
