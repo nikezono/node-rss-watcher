@@ -2,4 +2,4 @@
 --colors
 --timeout 1000000
 --require blanket
---reporter mocha-lcov-reporter
+--reporter spec
