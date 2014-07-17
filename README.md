@@ -28,6 +28,7 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
     feed = 'http://github.com/nikezono.atom'
 
     watcher = new Watcher(feed)
+    watcher.run()
 
     # it is optional
     watcher.set
@@ -40,6 +41,9 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
     watcher.on "new article",(article)->
       console.log article # article object
+
+    # stop
+    watcher.stop()
 
 ## CLI tool
 
