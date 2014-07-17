@@ -60,11 +60,13 @@ then,
 
 Spec Report:
 
-    npm run-script test-spec
+    npm test
 
-
-Coverage:
+Coverage dump:
 
     npm run-script test-cover
     open coverage.html
 
+Coverage report to Coveralls:
+
+    npm run-script test-coveralls
