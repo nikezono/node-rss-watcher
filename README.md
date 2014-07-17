@@ -28,14 +28,16 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
     feed = 'http://github.com/nikezono.atom'
 
     watcher = new Watcher(feed)
-    watcher.run()
 
     # it is optional
     watcher.set
       feed:feed # feed url
       interval: 10000 # milliseconds. default:avarage update frequency
+      
+    # run
+    watcher.run()
 
-    # exposed event
+    # exposed event while running
     watcher.on "error",(error)->
       console.error error
 
