@@ -1,14 +1,14 @@
 language: node_js
 before_install:
-  - npm install -g coffee-script mocha mocha-lcov-reporter blanket
+  - npm install -g grunt grunt-cli
 before_script:
-  - coffee -o ./lib -c -b ./src
+  - grunt coffee
 node_js:
   - "0.10"
 script:
-  - npm test
+  - grunt test
 after_success:
-  - npm run-script test-coveralls
+  - grunt ci
 notifications:
   slack:
     masuilab:p4zvcihWTFLz1KwJXYGwJgeZ

@@ -4,4 +4,4 @@ test/test.js
 node_modules
 .npmignore
 lib/
-coverage.html
+coverage

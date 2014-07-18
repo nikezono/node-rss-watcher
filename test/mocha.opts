@@ -1,5 +1,0 @@
---compilers coffee:coffee-script/register
---colors
---timeout 1000000
---require blanket
---reporter spec

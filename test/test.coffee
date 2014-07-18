@@ -13,7 +13,7 @@ assert = require 'assert'
 # Feed Repo
 feed = "https://github.com/nikezono.atom"
 
-Watcher = require path.resolve 'lib','watcher'
+Watcher = require '../lib/watcher'
 
 describe "rss-watcher",->
 

@@ -1,55 +1,53 @@
 {
-    "name": "rss-watcher",
-    "version": "1.0.7",
-    "description": "RSS reader/watcher",
-    "main": "lib/watcher.js",
-    "scripts": {
-      "test": "mocha test",
-      "test-cover": "mocha test -R html-cov > coverage.html",
-      "test-coveralls":"mocha test --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
-
-    },
-    "config": {
-      "blanket": {
-        "pattern": "lib",
-        "loader": "./node-loaders/coffee-script",
-        "data-cover-never": "node_modules"
-      }
-    },
-    "bin": {
-      "rss-watcher": "./bin/rss-watcher"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/nikezono/node-rss-watcher.git"
-    },
-    "dependencies": {
-      "async": "~0.9.0",
-      "colors": "~0.6.2",
-      "commander": "~2.2.0",
-      "goo.gl": "~0.1.0",
-      "moment": "~2.7.0",
-      "parse-rss": "*",
-      "rss-frequency": "*"
-    },
-    "devDependencies": {
-      "blanket": "^1.1.6",
-      "coveralls": "^2.11.1",
-      "mocha-lcov-reporter": "0.0.1",
-      "coffee-script": "*",
-      "mocha": "*"
-    },
-    "keywords": [
-      "rss",
-      "atom",
-      "reader",
-      "watcher",
-      "watch",
-      "read"
-    ],
-    "author": "nikezono",
-    "license": "MIT",
-    "bugs": {
-      "url": "https://github.com/nikezono/node-rss-watcher/issues"
-    }
+  "name": "rss-watcher",
+  "version": "1.0.8",
+  "description": "RSS reader/watcher",
+  "main": "lib/watcher.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "bin": {
+    "rss-watcher": "./bin/rss-watcher"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikezono/node-rss-watcher.git"
+  },
+  "dependencies": {
+    "async": "~0.9.0",
+    "colors": "~0.6.2",
+    "commander": "~2.2.0",
+    "moment": "~2.7.0",
+    "parse-rss": "*",
+    "rss-frequency": "*"
+  },
+  "devDependencies": {
+    "coffee-errors": "^0.8.6",
+    "coffee-script": "*",
+    "coffeelint": "^1.5.2",
+    "grunt": "^0.4.5",
+    "grunt-blanket": "0.0.8",
+    "grunt-cli": "^0.1.13",
+    "grunt-coffeelint": "0.0.10",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-test": "^0.11.0",
+    "grunt-notify": "^0.3.0",
+    "underscore": "^1.6.0"
+  },
+  "keywords": [
+    "rss",
+    "atom",
+    "reader",
+    "watcher",
+    "watch",
+    "read"
+  ],
+  "author": "nikezono",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikezono/node-rss-watcher/issues"
+  }
 }
