@@ -86,14 +86,14 @@ module.exports = (grunt) ->
       spec:
         options:
           reporter:"spec"
-          timeout: 10000
+          timeout: 50000
           colors: true
         src: ['test/**/*.coffee']
 
       coverage:
         options:
           reporter:"html-cov"
-          timeout: 10000
+          timeout: 50000
           captureFile: 'coverage/coverage.html'
           quiet:true
         src: ['coverage/test/**/*.coffee']
@@ -101,7 +101,7 @@ module.exports = (grunt) ->
       coverdump:
         options:
           reporter: 'mocha-lcov-reporter'
-          timeout: 10000
+          timeout: 50000
           quiet: true
           captureFile: 'coverage/lcov.info'
         src: ['coverage/test/**/*.coffee']
