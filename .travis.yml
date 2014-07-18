@@ -6,9 +6,7 @@ before_script:
 node_js:
   - "0.10"
 script:
-  - grunt test
-after_success:
-  - grunt ci
+  - grunt travis
 notifications:
   slack:
     masuilab:p4zvcihWTFLz1KwJXYGwJgeZ
