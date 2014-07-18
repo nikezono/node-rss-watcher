@@ -33,13 +33,19 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
     watcher.set
       feed:feed # feed url
       interval: 10000 # milliseconds. default:avarage update frequency
+      
+    # run
+    watcher.run()
 
-    # exposed event
+    # exposed event while running
     watcher.on "error",(error)->
       console.error error
 
     watcher.on "new article",(article)->
       console.log article # article object
+
+    # stop
+    watcher.stop()
 
 ## CLI tool
 
@@ -54,11 +60,13 @@ then,
 
 Spec Report:
 
-    npm run-script test-spec
+    npm test
 
-
-Coverage:
+Coverage dump:
 
     npm run-script test-cover
     open coverage.html
 
+Coverage report to Coveralls:
+
+    npm run-script test-coveralls
