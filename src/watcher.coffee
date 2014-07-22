@@ -68,8 +68,8 @@ class Watcher extends EventEmitter
 
         if isNaN(@interval / 1)
           return callback new Error("interval object isnt instanceof Number"),null if callback?
-        if @interval / 1 <= 100
-          return callback new Error("interval is too narrow or negative value"),null if callback?
+        if @interval / 1 < 0
+          return callback new Error("interval has given negative value"),null if callback?
 
         return initialize(callback)
     else
