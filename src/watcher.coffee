@@ -38,28 +38,41 @@ class Watcher extends EventEmitter
 
 
   set:(obj)->
-    @feedUrl  = obj.feedUrl if obj.feedUrl?
-    @interval = obj.interval if obj.interval? && obj.interval > 100
-    return true
+    flag = false
+    if obj.feedUrl?
+      @feedUrl  = obj.feedUrl if obj.feedUrl?
+      flag = true
+    if obj.interval?
+      @interval = obj.interval if obj.interval?
+      flag = true
+    return flag
 
   run:(done)=>
     if not @feedUrl
       throw new Error("Feed Url Not Found")
 
-    # Freq
-    if not @interval
+    if not @interval or typeof @interval is 'function'
       frequency = require 'rss-frequency'
       frequency @feedUrl ,(error,interval)=>
         if error
-          throw new Error(error)
-        @interval = interval
+          return done new Error(error)
+
+        if typeof @interval is 'function'
+          @interval = @interval(interval)
+        else
+          @interval = interval
+
+        if isNaN(@interval / 1)
+          return done new Error("interval object isnt instanceof Number") if done?
+        if @interval / 1 <= 100
+          return done new Error("interval is too narrow or negative value") if done?
 
         @timer = @watch @feedUrl,@interval
-        done() if done?
+        return done() if done?
 
     else
       @timer = @watch @feedUrl,@interval
-      done() if done?
+      return done() if done?
 
   stop:->
     if not @timer
