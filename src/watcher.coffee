@@ -47,13 +47,14 @@ class Watcher extends EventEmitter
       flag = true
     return flag
 
-  run:(done)=>
+  run:(callback)=>
 
     if not @interval or typeof @interval is 'function'
       frequency = require 'rss-frequency'
-      frequency @feedUrl ,(error,interval)=>
-        if error
-          return done new Error(error)
+      frequency @feedUrl,(error,interval)=>
+
+        if error?
+          return callback new Error(error),null if callback?
 
         if typeof @interval is 'function'
           @interval = @interval(interval)
@@ -61,16 +62,16 @@ class Watcher extends EventEmitter
           @interval = interval
 
         if isNaN(@interval / 1)
-          return done new Error("interval object isnt instanceof Number") if done?
+          return callback new Error("interval object isnt instanceof Number"),null if callback?
         if @interval / 1 <= 100
-          return done new Error("interval is too narrow or negative value") if done?
+          return callback new Error("interval is too narrow or negative value"),null if callback?
 
         @timer = @watch @feedUrl,@interval
-        return done() if done?
+        return callback(null,null) if callback?
 
     else
       @timer = @watch @feedUrl,@interval
-      return done() if done?
+      return callback(null,null) if callback?
 
   stop:->
     if not @timer

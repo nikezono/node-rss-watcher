@@ -27,24 +27,24 @@ describe "rss-watcher",->
       watcher = new Watcher()
     ,Error
 
-  it "can emit error if feed url is invalid",->
+  it "can emit error if feed url is invalid",(done)->
     watcher = new Watcher("hoge")
-    assert.throws ->
-      watcher.run()
-    ,Error
+    watcher.run (err,articles)->
+      assert.ok err instanceof Error
+      done()
 
   it "最初にまとめて読める",(done)->
     watcher = new Watcher(feed)
-    watcher.run ->
-      watcher.once "new article",(article)->
-        done()
+    watcher.run (err,articles)->
+      assert.ok articles.length > 0
+      done()
 
   it "option",(done)->
     watcher = new Watcher(feed)
     assert.ok watcher.set
       feedUrl:feed
       interval:10000
-    watcher.run ->
+    watcher.run (err,articles)->
       done()
 
   it "option #2:関数を引数に取れる",(done)->
@@ -55,7 +55,7 @@ describe "rss-watcher",->
           return frequency-1000
         else
           frequency
-    watcher.run ->
+    watcher.run (err,articles)->
       done()
 
   it "option #2:マイナスの値は指定できない",(done)->
@@ -63,7 +63,7 @@ describe "rss-watcher",->
     watcher.set
       interval:(freq)->
         return -1000
-    watcher.run (err)->
+    watcher.run (err,articles)->
       assert.ok err instanceof Error
       done()
 
@@ -72,7 +72,7 @@ describe "rss-watcher",->
     watcher.set
       interval:(freq)->
         return "hoge"
-    watcher.run (err)->
+    watcher.run (err,articles)->
       assert.ok err instanceof Error
       done()
 
