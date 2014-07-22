@@ -48,8 +48,6 @@ class Watcher extends EventEmitter
     return flag
 
   run:(done)=>
-    if not @feedUrl
-      throw new Error("Feed Url Not Found")
 
     if not @interval or typeof @interval is 'function'
       frequency = require 'rss-frequency'
