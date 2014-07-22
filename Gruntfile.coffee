@@ -59,7 +59,7 @@ module.exports = (grunt) ->
           'public/**/*.{coffee,js,jade}'
           'test/**/*.coffee'
         ]
-        tasks: [ 'test','coffee','copy:bin' ]
+        tasks: [ 'coffeelint','coffee','mochaTest:spec' ]
 
     coffee:
       multiple:

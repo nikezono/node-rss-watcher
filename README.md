@@ -33,7 +33,12 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
     watcher.set
       feed:feed # feed url
       interval: 10000 # milliseconds. default:avarage update frequency
-      
+
+    # function argument
+    watcher.set
+      interval: (avarage)->
+        return 60 * 3 if avarage < 60 * 3 # ex:Throttle HTTP Access
+
     # run
     watcher.run()
 
