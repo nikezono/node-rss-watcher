@@ -34,7 +34,7 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
     watcher.run (err,articles)->
       console.error err if err
-      console.log articles
+      console.log articles # current articles
 
 
 ### option
