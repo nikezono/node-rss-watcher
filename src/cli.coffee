@@ -10,7 +10,6 @@ program = require "commander"
 colors  = require 'colors'
 moment  = require 'moment'
 
-
 # Color Schema
 colors.setTheme
   time: 'grey'
@@ -22,7 +21,7 @@ color = ["white",'yellow', 'cyan', 'magenta', 'red', 'green', 'blue' ]
 cnumber = 0
 
 # define Option
-program.version("0.2.0")
+program.version("1.2.0")
   .option("-f, --feed [String]", "RSS/Atom feed URL (required)")
   .option("-i, --interval [Number]", "fetch interval (optional)",parseInt)
   .option("-u, --nourl [Bool]", "Don't show articles url (optional)")
@@ -38,6 +37,9 @@ watcher.on 'error',(error)->
 
 watcher.on 'new article',(article)->
   rendering(article)
+
+watcher.set
+  interval:program.interval if program.interval > 0
 
 watcher.run (err,articles)->
   throw new Error(err) if err
