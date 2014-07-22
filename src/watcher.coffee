@@ -17,24 +17,20 @@ class Watcher extends EventEmitter
     @interval = null
     @lastPubDate = null
     @timer = null
-    @watch = (url,interval)=>
+    @watch = =>
 
-      fetch = (feedUrl)=>
-        parser feedUrl,(err,articles)=>
+      fetch = =>
+        request @feedUrl,(err,articles)=>
           return @emit 'error', err if err
-
-          articles.sort (a,b)->
-            return a.pubDate/1000 - b.pubDate/1000
 
           for article in articles
             if not @lastPubDate or @lastPubDate < article.pubDate/1000
               @emit 'new article',article
               @lastPubDate = article.pubDate / 1000
 
-      fetch(url)
       return setInterval ->
-        fetch(url)
-      ,interval
+        fetch(@feedUrl)
+      ,@interval
 
 
   set:(obj)->
@@ -49,6 +45,15 @@ class Watcher extends EventEmitter
 
   run:(callback)=>
 
+    # 正常系 #
+    initialize = (callback)=>
+      request @feedUrl,(err,articles)=>
+        return callback new Error(err),null if err? and callback?
+        @lastPubDate = articles[articles.length-1].pubDate
+        @timer = @watch()
+        return callback null,articles if callback?
+
+    # 更新頻度を取得して利用 #
     if not @interval or typeof @interval is 'function'
       frequency = require 'rss-frequency'
       frequency @feedUrl,(error,interval)=>
@@ -66,18 +71,24 @@ class Watcher extends EventEmitter
         if @interval / 1 <= 100
           return callback new Error("interval is too narrow or negative value"),null if callback?
 
-        @timer = @watch @feedUrl,@interval
-        return callback(null,null) if callback?
-
+        return initialize(callback)
     else
-      @timer = @watch @feedUrl,@interval
-      return callback(null,null) if callback?
+      return initialize(callback)
 
-  stop:->
+  stop:=>
     if not @timer
       throw new Error("RSS-Watcher isnt running now")
 
     clearInterval(@timer)
     @emit 'stop'
+
+request = (feedUrl,callback)=>
+  parser feedUrl,(err,articles)=>
+    return callback err,null if err?
+
+    articles.sort (a,b)->
+      return a.pubDate/1000 - b.pubDate/1000
+
+    return callback null,articles
 
 module.exports = Watcher

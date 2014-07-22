@@ -33,7 +33,7 @@ describe "rss-watcher",->
       assert.ok err instanceof Error
       done()
 
-  it "最初にまとめて読める",(done)->
+  it "#3 最初にまとめて読める",(done)->
     watcher = new Watcher(feed)
     watcher.run (err,articles)->
       assert.ok articles.length > 0
