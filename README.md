@@ -29,34 +29,46 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
     watcher = new Watcher(feed)
 
-    # it is optional
+    watcher.on 'new article',(article)->
+      console.log article
+
+    watcher.run (err,articles)->
+      console.error err if err
+      console.log articles
+
+
+### option
+
+    watcher = new Watcher(feed)
     watcher.set
       feed:feed # feed url
-      interval: 10000 # milliseconds. default:avarage update frequency
+      interval:  # request per interval seconds. default:avarage update frequency
 
-    # function argument
+### functional option
+
     watcher.set
       interval: (avarage)->
         return 60 * 3 if avarage < 60 * 3 # ex:Throttle HTTP Access
 
-    # run
-    watcher.run()
 
-    # exposed event while running
+### exposed events
+
     watcher.on "error",(error)->
       console.error error
 
     watcher.on "new article",(article)->
       console.log article # article object
 
-    # stop
+    watcher.on "stop", ->
+      console.log 'stop'
+
     watcher.stop()
 
 ## CLI tool
 
     > rss-watcher 'http://github.com/nikezono.atom' -i 20000 # 20000s interval
 
-then,
+### Image
 
 ![gyazo](http://gyazo.com/35357bf10711857403eaa7abe6b70037.png)
 
@@ -65,13 +77,11 @@ then,
 
 Spec Report:
 
-    npm test
+    npm -i -g grunt grunt-cli
+    grunt test
 
 Coverage dump:
 
-    npm run-script test-cover
+    grunt coverage
     open coverage.html
 
-Coverage report to Coveralls:
-
-    npm run-script test-coveralls

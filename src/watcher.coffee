@@ -30,7 +30,7 @@ class Watcher extends EventEmitter
 
       return setInterval ->
         fetch(@feedUrl)
-      ,@interval
+      ,@interval*1000
 
 
   set:(obj)->
@@ -49,7 +49,7 @@ class Watcher extends EventEmitter
     initialize = (callback)=>
       request @feedUrl,(err,articles)=>
         return callback new Error(err),null if err? and callback?
-        @lastPubDate = articles[articles.length-1].pubDate
+        @lastPubDate = articles[articles.length-1].pubDate / 1000
         @timer = @watch()
         return callback null,articles if callback?
 
