@@ -15,7 +15,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-notify'
   grunt.loadNpmTasks 'grunt-coveralls'
 
-  grunt.registerTask 'test',     [ 'coffeelint', 'mochaTest:spec' ]
+  grunt.registerTask 'test',     [ 'coffeelint','coffee', 'mochaTest:spec' ]
   grunt.registerTask 'coverage', [ 'clean', 'blanket', 'copy','mochaTest:coverage' ]
   grunt.registerTask 'ci',       [ 'clean', 'blanket', 'copy','mochaTest:coverdump','coveralls']
   grunt.registerTask 'travis',   [ 'test','ci']
