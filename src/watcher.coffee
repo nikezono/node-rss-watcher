@@ -16,6 +16,7 @@ class Watcher extends EventEmitter
     @feedUrl = feedUrl
     @interval = null
     @lastPubDate = null
+    @lastPubTitle = null
     @timer = null
     @watch = =>
 
@@ -24,9 +25,11 @@ class Watcher extends EventEmitter
           return @emit 'error', err if err
 
           for article in articles
-            if not @lastPubDate or @lastPubDate < article.pubDate/1000
+            if (@lastPubDate is null and @lastPubTitle is null) or
+            (@lastPubDate <= article.pubDate/1000 and @lastPubTitle isnt article.title)
               @emit 'new article',article
               @lastPubDate = article.pubDate / 1000
+              @lastPubTitle = article.title
 
       return setInterval ->
         fetch(@feedUrl)
