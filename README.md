@@ -42,13 +42,13 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
     watcher = new Watcher(feed)
     watcher.set
       feed:feed # feed url
-      interval: 60  # request per interval seconds. default:avarage update frequency
+      interval: 60  # request per interval seconds. default:average update frequency
 
 ### functional option
 
     watcher.set
-      interval: (avarage)->
-        return 60 * 3 if avarage < 60 * 3 # ex:Throttle HTTP Access
+      interval: (average)->
+        return 60 * 3 if average < 60 * 3 # ex:Throttle HTTP Access
 
 
 ### exposed events
