@@ -8,6 +8,7 @@
 
 {EventEmitter} = require 'events'
 parser = require 'parse-rss'
+crypto = require('crypto');
 
 class Watcher extends EventEmitter
 
@@ -15,8 +16,8 @@ class Watcher extends EventEmitter
     throw new Error("arguments error.") if not feedUrl or feedUrl is undefined
     @feedUrl = feedUrl
     @interval = null
-    @lastPubDate = null
-    @lastPubTitle = null
+    @hashCache = [];
+    @initialized = false;
     @timer = null
     @watch = =>
 
@@ -25,11 +26,17 @@ class Watcher extends EventEmitter
           return @emit 'error', err if err
 
           for article in articles
-            if (@lastPubDate is null and @lastPubTitle is null) or
-            (@lastPubDate <= article.pubDate/1000 and @lastPubTitle isnt article.title)
-              @emit 'new article',article
-              @lastPubDate = article.pubDate / 1000
-              @lastPubTitle = article.title
+            hash = crypto.createHash('md5').update(JSON.stringify({
+                  "date": article.pubDate,
+                  "title": article.title
+                })).digest('hex');
+            if (@hashCache.indexOf(hash) == -1)
+              @emit 'new article',article if @initialized 
+              @hashCache.unshift(hash);
+     				  # Free up memory
+              @hashCache.pop() if @hashCache.length > 100;
+              
+          @initialized = true
 
       return setInterval ->
         fetch(@feedUrl)
@@ -52,7 +59,6 @@ class Watcher extends EventEmitter
     initialize = (callback)=>
       request @feedUrl,(err,articles)=>
         return callback new Error(err),null if err? and callback?
-        @lastPubDate = articles[articles.length-1].pubDate / 1000
         @timer = @watch()
         return callback null,articles if callback?
 
