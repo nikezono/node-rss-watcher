@@ -26,7 +26,10 @@ class Watcher extends EventEmitter
           return @emit 'error', err if err
 
           for article in articles
-            hash = crypto.createHash('md5').update(JSON.stringify(article)).digest('hex');
+            hash = crypto.createHash('md5').update(JSON.stringify({
+                  "date": article.pubDate,
+                  "title": article.title
+                })).digest('hex');
             if (@hashCache.indexOf(hash) == -1)
               @emit 'new article',article if @initialized 
               @hashCache.unshift(hash);
