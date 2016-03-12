@@ -53,6 +53,7 @@ class Watcher extends EventEmitter
       request @feedUrl,(err,articles)=>
         return callback new Error(err),null if err? and callback?
         @lastPubDate = articles[articles.length-1].pubDate / 1000
+        @lastPubTitle = articles[articles.length-1].title
         @timer = @watch()
         return callback null,articles if callback?
 
