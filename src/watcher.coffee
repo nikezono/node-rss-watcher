@@ -16,7 +16,7 @@ class Watcher extends EventEmitter
     @feedUrl = feedUrl
     @interval = null
     @lastPubDate = null
-    @lastPubTitle = null
+    @lastPubTitles = []
     @timer = null
     @watch = =>
 
@@ -25,11 +25,9 @@ class Watcher extends EventEmitter
           return @emit 'error', err if err
 
           for article in articles
-            if (@lastPubDate is null and @lastPubTitle is null) or
-            (@lastPubDate <= article.pubDate/1000 and @lastPubTitle isnt article.title)
+            if @isNewArticle(article)
               @emit 'new article',article
-              @lastPubDate = article.pubDate / 1000
-              @lastPubTitle = article.title
+              @updateLastPubArticle(article)
 
       return setInterval ->
         fetch(@feedUrl)
@@ -45,6 +43,18 @@ class Watcher extends EventEmitter
       @interval = obj.interval if obj.interval?
       flag = true
     return flag
+
+  updateLastPubArticle:(article)=>
+    newPubDate = article.pubDate / 1000
+    if @lastPubDate == newPubDate
+      @lastPubTitles.push(article.title)
+    else
+      @lastPubTitles = [article.title]
+    @lastPubDate = newPubDate
+
+  isNewArticle:(article)=>
+    return (@lastPubDate is null and @lastPubTitles.length == 0) or
+            (@lastPubDate <= article.pubDate/1000 and article.title not in @lastPubTitles)
 
   run:(callback)=>
 
