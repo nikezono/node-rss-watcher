@@ -10,8 +10,10 @@
 path = require 'path'
 assert = require 'assert'
 
-# Feed Repo
-feed = "https://github.com/nikezono.atom"
+# Feed to test
+# FIXME use something does not emit http request,
+#       such as mock or stub
+feed = "https://github.com/nikezono/node-rss-watcher/commits/master.atom"
 
 Watcher = require '../lib/watcher'
 
@@ -27,27 +29,30 @@ describe "rss-watcher",->
       watcher = new Watcher()
     ,Error
 
-  it "can emit error if feed url is invalid",(done)->
+  it "can return error if feed url is invalid",(done)->
     watcher = new Watcher("hoge")
     watcher.run (err,articles)->
-      assert.ok err instanceof Error
+      assert.ok(err instanceof Error)
       done()
 
-  it "#3 最初にまとめて読める",(done)->
+  it "does not emit any event at first launch",(done)->
     watcher = new Watcher(feed)
     watcher.run (err,articles)->
-      assert.ok articles.length > 0
+      console.log err
+      assert.ok(0 < articles.length)
       done()
 
-  it "option",(done)->
+  it "can pass option 'interval' for fetch interval",(done)->
     watcher = new Watcher(feed)
+    begin = Date.now()
     assert.ok watcher.set
       feedUrl:feed
-      interval:10000
+      interval:1000
     watcher.run (err,articles)->
+      assert.ok(1000 < Date.now - begin)
       done()
 
-  it "option #2:関数を引数に取れる",(done)->
+  it "can pass option 'interval' as function object",(done)->
     watcher = new Watcher(feed)
     watcher.set
       interval:(frequency)->
@@ -58,7 +63,7 @@ describe "rss-watcher",->
     watcher.run (err,articles)->
       done()
 
-  it "option #2:マイナスの値は指定できない",(done)->
+  it "can't pass negative value as option 'interval'",(done)->
     watcher = new Watcher(feed)
     watcher.set
       interval:(freq)->
@@ -67,7 +72,7 @@ describe "rss-watcher",->
       assert.ok err instanceof Error
       done()
 
-  it "option #2:数値以外を返す関数を登録できない",(done)->
+  it "can't pass function that returns not a number",(done)->
     watcher = new Watcher(feed)
     watcher.set
       interval:(freq)->
