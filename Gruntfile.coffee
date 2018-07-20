@@ -8,17 +8,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-coffeelint'
-  grunt.loadNpmTasks 'grunt-contrib-clean'
-  grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-mocha-test'
-  grunt.loadNpmTasks 'grunt-blanket'
   grunt.loadNpmTasks 'grunt-notify'
-  grunt.loadNpmTasks 'grunt-coveralls'
 
   grunt.registerTask 'test',     [ 'coffeelint','coffee', 'mochaTest:spec' ]
-  grunt.registerTask 'coverage', [ 'clean', 'blanket', 'copy','mochaTest:coverage' ]
-  grunt.registerTask 'ci',       [ 'clean', 'blanket', 'copy','mochaTest:coverdump','coveralls']
-  grunt.registerTask 'travis',   [ 'test','ci']
+  grunt.registerTask 'travis',   [ 'test' ]
   grunt.registerTask 'default',  [ 'test', 'watch' ]
 
   grunt.initConfig
@@ -69,19 +63,6 @@ module.exports = (grunt) ->
         dest:'lib/'
         ext:'.js'
 
-    clean:
-      coverage:
-        src: ['coverage/']
-
-    copy:
-      coverage:
-        src: ['test/**']
-        dest: 'coverage/'
-
-    blanket:
-      coverage:
-        files:'coverage/lib':['lib/']
-
     mochaTest:
       spec:
         options:
@@ -89,27 +70,3 @@ module.exports = (grunt) ->
           timeout: 50000
           colors: true
         src: ['test/**/*.coffee']
-
-      coverage:
-        options:
-          reporter:"html-cov"
-          timeout: 50000
-          captureFile: 'coverage/coverage.html'
-          quiet:true
-        src: ['coverage/test/**/*.coffee']
-
-      coverdump:
-        options:
-          reporter: 'mocha-lcov-reporter'
-          timeout: 50000
-          quiet: true
-          captureFile: 'coverage/lcov.info'
-        src: ['coverage/test/**/*.coffee']
-
-    coveralls:
-      all:
-        src:'coverage/lcov.info'
-
-
-
-

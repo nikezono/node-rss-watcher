@@ -8,5 +8,3 @@ node_js:
   - "10"
 script:
   - grunt travis
-env:
-  - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=4yoG9YoXQFnuOqQcEMM0Y9lea4eB7uuDq
