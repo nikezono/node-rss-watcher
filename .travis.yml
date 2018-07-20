@@ -4,11 +4,9 @@ before_install:
 before_script:
   - grunt coffee
 node_js:
-  - "0.10"
+  - "7"
+  - "10"
 script:
   - grunt travis
-notifications:
-  slack:
-    masuilab:p4zvcihWTFLz1KwJXYGwJgeZ
 env:
   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=4yoG9YoXQFnuOqQcEMM0Y9lea4eB7uuDq
