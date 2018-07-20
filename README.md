@@ -3,8 +3,10 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
 [![NPM](https://nodei.co/npm/rss-watcher.png)](https://nodei.co/npm/rss-watcher/)
 
+![gyazo](http://gyazo.com/35357bf10711857403eaa7abe6b70037.png)
+
 ## What is it
-`RSS-Watcher` is Small Library for RSS/Atom Feed Reader
+`RSS-Watcher` is Tinu Library/Executable for RSS/Atom Feed Reader
 
 ##install
 
@@ -44,13 +46,6 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
       feed:feed # feed url
       interval: 60  # request per interval seconds. default:average update frequency
 
-### functional option
-
-    watcher.set
-      interval: (average)->
-        return 60 * 3 if average < 60 * 3 # ex:Throttle HTTP Access
-
-
 ### exposed events
 
     watcher.on "error",(error)->
@@ -66,11 +61,7 @@ rss-watcher [![Build Status](https://travis-ci.org/nikezono/node-rss-watcher.png
 
 ## CLI tool
 
-    > rss-watcher 'http://github.com/nikezono.atom' -i 20000 # 20000s interval
-
-### Image
-
-![gyazo](http://gyazo.com/35357bf10711857403eaa7abe6b70037.png)
+    > rss-watcher -f 'http://github.com/nikezono.atom' -i 20000 # 20000s interval
 
 
 ## Test

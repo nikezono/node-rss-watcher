@@ -50,17 +50,6 @@ describe "rss-watcher",->
     watcher.run (err,articles)->
       done()
 
-  it "can pass option 'interval' as function object",(done)->
-    watcher = new Watcher(feed)
-    watcher.set
-      interval:(frequency)->
-        if frequency > 1000
-          return frequency-1000
-        else
-          frequency
-    watcher.run (err,articles)->
-      done()
-
   it "can't pass negative value as option 'interval'",(done)->
     watcher = new Watcher(feed)
     watcher.set

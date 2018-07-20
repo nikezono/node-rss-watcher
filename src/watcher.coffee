@@ -79,32 +79,10 @@ class Watcher extends EventEmitter
         @timer = @watch()
         return callback null, articles if callback?
 
-    # if mean interval for updating feed does not set, calculate it by current feed object.
-    if not @interval or typeof @interval is 'function'
-      fetchFeed @feedUrl, (error, articles)->
-        if error?
-          return callback new Error(error),null if callback?
+    if not @interval
+      @interval = 60 * 5 # 5 minutes... it's heuristic
 
-        sumOfUpdateDiff = 0
-        prevUpdate = Date.now()
-        for article in articles
-          sumOfUpdateDiff += prevUpdate - article.pubDate
-          prevUpdate = article.pubDate
-        interval = sumOfUpdateDiff / articles.length
-
-        if typeof @interval is 'function'
-          @interval = @interval(interval)
-        else
-          @interval = interval
-
-        if isNaN(@interval / 1)
-          return callback new Error("interval object isn't instanceof Number"),null if callback?
-        if @interval < 0
-          return callback new Error("interval can't be negative value"),null if callback?
-
-        return initialize(callback)
-    else
-      return initialize(callback)
+    return initialize(callback)
 
   stop:=>
     if not @timer

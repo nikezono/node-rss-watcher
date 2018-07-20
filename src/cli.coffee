@@ -38,8 +38,9 @@ watcher.on 'error',(error)->
 watcher.on 'new article',(article)->
   rendering(article)
 
-watcher.set
-  interval:program.interval if program.interval > 0
+if program.interval
+  watcher.set
+    interval:program.interval
 
 watcher.run (err,articles)->
   throw new Error(err) if err
