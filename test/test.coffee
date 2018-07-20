@@ -79,6 +79,34 @@ describe "rss-watcher",->
       assert.ok err instanceof Error
       done()
 
+  it "tracks multiple articles with the same pubDate",(done)->
+    watcher = new Watcher(feed)
+    article1 =
+      title: 'first title'
+      pubDate: new Date('Wed, 18 Jul 2018 22:45:19 +0000')
+    article2 =
+      title: 'second title'
+      pubDate: article1.pubDate
+    article3 =
+      title: 'third title'
+      pubDate: new Date('Wed, 18 Jul 2018 22:45:20 +0000')
+    assert(watcher.isNewArticle(article1),'expected article1 to be new')
+    
+    watcher.updateLastPubArticle(article1)
+    assert(!watcher.isNewArticle(article1),'expected article1 not to be new')
+    assert(watcher.isNewArticle(article2),'expected article2 to be new')
+    
+    watcher.updateLastPubArticle(article2)
+    assert(!watcher.isNewArticle(article1),'expected article1 not to be new')
+    assert(!watcher.isNewArticle(article2),'expected article2 not to be new')
+
+    assert(watcher.isNewArticle(article3),'expected article3 to be new')
+    watcher.updateLastPubArticle(article3)
+    assert(!watcher.isNewArticle(article1),'expected article1 not to be new')
+    assert(!watcher.isNewArticle(article2),'expected article2 not to be new')
+    assert(!watcher.isNewArticle(article3),'expected article3 not to be new')
+    done()
+
   it "stop",(done)->
     watcher = new Watcher(feed)
     watcher.run ->
